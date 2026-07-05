@@ -87,27 +87,29 @@ if not hoja.empty:
     idx_edit = int(seleccion_edit.split(" - ")[0])
 
     with st.form("editar_form"):
-    producto_edit = st.selectbox("Producto", ["Tenis", "Mochila", "Bolsa", "Gorra"],
-                                 index=["Tenis","Mochila","Bolsa","Gorra"].index(hoja.loc[idx_edit, "Producto"]))
-    descripcion_edit = st.text_input("Descripción del pedido", value=hoja.loc[idx_edit, "Descripcion"])
-    fecha_recep_edit = st.date_input("Fecha de recepción", value=pd.to_datetime(hoja.loc[idx_edit, "FechaEntrega"]))
-    fecha_entrega_edit = st.date_input("Fecha de entrega", value=pd.to_datetime(hoja.loc[idx_edit, "FechaEntrega"]))
-    tratamiento_edit = st.text_input("Tratamiento aplicado", value=hoja.loc[idx_edit, "Tratamiento"])
-    monto_edit = st.number_input("Monto a pagar", min_value=0.0, step=50.0, value=float(hoja.loc[idx_edit, "Monto"]))
-    estado_edit = st.selectbox("Estado de pago", ["Pagado", "Pendiente"],
-                               index=["Pagado","Pendiente"].index(hoja.loc[idx_edit, "EstadoPago"]))
-    submit_edit = st.form_submit_button("Guardar cambios")
+        producto_edit = st.selectbox("Producto", ["Tenis", "Mochila", "Bolsa", "Gorra"],
+                                     index=["Tenis","Mochila","Bolsa","Gorra"].index(hoja.loc[idx_edit, "Producto"]))
+        descripcion_edit = st.text_input("Descripción del pedido", value=hoja.loc[idx_edit, "Descripcion"])
+        fecha_recep_edit = st.date_input("Fecha de recepción", value=pd.to_datetime(hoja.loc[idx_edit, "FechaEntrega"]))
+        fecha_entrega_edit = st.date_input("Fecha de entrega", value=pd.to_datetime(hoja.loc[idx_edit, "FechaEntrega"]))
+        tratamiento_edit = st.text_input("Tratamiento aplicado", value=hoja.loc[idx_edit, "Tratamiento"])
+        monto_edit = st.number_input("Monto a pagar", min_value=0.0, step=50.0, value=float(hoja.loc[idx_edit, "Monto"]))
+        estado_edit = st.selectbox("Estado de pago", ["Pagado", "Pendiente"],
+                                   index=["Pagado","Pendiente"].index(hoja.loc[idx_edit, "EstadoPago"]))
+        submit_edit = st.form_submit_button("Guardar cambios")
 
-if submit_edit:
-    hoja.loc[idx_edit, :] = {
-        "Producto": producto_edit,
-        "Descripcion": descripcion_edit,
-        "FechaEntrega": fecha_entrega_edit,   # aquí guardas la fecha de entrega
-        "Tratamiento": tratamiento_edit,
-        "Monto": monto_edit,
-        "EstadoPago": estado_edit
-    }
-    hoja.to_csv(DATA_FILE, index=False)
-    st.success("✏️ Registro editado correctamente")
-    st.dataframe(hoja)
+    if submit_edit:
+        hoja.loc[idx_edit, :] = {
+            "Producto": producto_edit,
+            "Descripcion": descripcion_edit,
+            "FechaEntrega": fecha_entrega_edit,
+            "Tratamiento": tratamiento_edit,
+            "Monto": monto_edit,
+            "EstadoPago": estado_edit
+        }
+        hoja.to_csv(DATA_FILE, index=False)
+        st.success("✏️ Registro editado correctamente")
+        st.dataframe(hoja)
+else:
+    st.info("No hay registros para editar.")
 
