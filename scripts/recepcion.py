@@ -1,6 +1,20 @@
 import streamlit as st
 import pandas as pd
 import os
+import streamlit as st
+
+# Clave fija
+PASSWORD = "biters2026"
+
+# Input de clave
+clave = st.text_input("🔑 Ingresa la clave de acceso", type="password")
+
+if clave == PASSWORD:
+    st.success("Acceso concedido ✅")
+    # Aquí va el resto de tu aplicación
+else:
+    st.warning("Acceso restringido. Ingresa la clave correcta.")
+
 
 DATA_FILE = "data/recepcion.csv"
 COLUMNAS = ["Producto", "Descripcion", "FechaEntrega", "Tratamiento", "Monto", "EstadoPago"]
